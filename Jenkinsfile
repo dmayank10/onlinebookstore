@@ -30,7 +30,6 @@ pipeline {
                     }
                 }
             }
-        }
         
         // stage('Kubernetes Deploy') {
         //     steps {
