@@ -23,12 +23,10 @@ pipeline {
             steps {
                 script {
                     // Build and tag Docker image
-                    def imageName = "my_proj:${env.BUILD_ID}"
-                    docker.build(imageName, '.')
-
+                    sh 'docker build new_proj:${env.BUILD_ID}'
+                    sh 'docker run -itd --name my_proj_container -p 8083:8083 new_proj:${env.BUILD_ID}'
                     // Push Docker image to registry
-                    docker.withRegistry(credentialsId: 'djkp', url: 'https://hub.docker.com/') {
-                        docker.image(imageName).push()
+                    
                     }
                 }
             }
