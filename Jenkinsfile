@@ -10,30 +10,13 @@ pipeline {
         }
         
         stage('Build All Modules') {
-            steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
-
-                script {
-                    def moduleDirs = findFiles(glob: '**/pom.xml')
-                    
-                    // Create an array to hold the parallel build steps
-                    def buildSteps = [:]
-                    
-                    // Loop through each module and add a build step for it
-                    moduleDirs.each { moduleDir ->
-                        def moduleName = moduleDir.path.substring(0, moduleDir.path.indexOf('/pom.xml'))
-                        buildSteps[moduleName] = {
-                            dir(moduleName) {
-                                // Build the module using 'mvn clean install'
-                                sh "mvn clean install"
-                            }
-                        }
-                    }
-                    
-                    // Run the build steps in parallel
-                    parallel buildSteps
+             steps {
+                withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'Maven', mavenSettingsConfig: '', traceability: true) {
+                    echo 'code build through maven'
+                    sh 'mvn clean install'
+                    sh 'mvn clean package'
+        
                 }
-            }
         }
         }
         stage('Docker Build & Push') {
