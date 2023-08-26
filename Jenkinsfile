@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Build and tag Docker image
-                    sh 'docker build new_proj:${env.BUILD_ID}'
+                    sh 'docker build -t new_proj:${env.BUILD_ID}'
                     sh 'docker run -itd --name my_proj_container -p 8083:8083 new_proj:${env.BUILD_ID}'
                     // Push Docker image to registry
                     
