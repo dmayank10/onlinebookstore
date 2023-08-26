@@ -11,7 +11,7 @@ pipeline {
         
         stage('Build All Modules') {
              steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'Maven', mavenSettingsConfig: '', traceability: true) {
+                withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
                     echo 'code build through maven'
                     sh 'mvn clean install'
                     sh 'mvn clean package'
